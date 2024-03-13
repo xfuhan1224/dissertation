@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.forum-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+}
+
+.img1 {
+    position: absolute;
+    max-width: 30rem; /* 使用最大宽度而非固定宽度 */
+    width: 100%; /* 使元素宽度适应父容器宽度 */
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img1 img {
+    max-width: 25%;
+    max-height: 100vh;
+    object-fit: contain;
+}
+
+.intro-1 {
+    max-width: 60rem; /* 使用最大宽度而非固定宽度 */
+    width: 100%; /* 使元素宽度适应父容器宽度 */
+    position: absolute;
+    top: 65%;
+    left: 63%;
+    color: #111111;
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: 'Montserrat';
+    overflow-wrap: break-word; /* 允许在必要时断词 */
+    transform: translateX(-50%);
+}
+
+.intro-2 {
+    max-width: 72rem; /* 使用最大宽度而非固定宽度 */
+    width: 100%; /* 使元素宽度适应父容器宽度 */
+    position: absolute;
+    top: 73%;
+    left: 52%;
+    color: #666666;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Montserrat';
+    overflow-wrap: break-word;
+    transform: translateX(-50%);
+}
+
+
+/* 当屏幕尺寸小于某个值时 */
+@media (max-width: 768px) {
+    .intro-1, .intro-2 {
+        font-size: 1.5rem; /* 减小字体大小 */
+        top: 60%; /* 调整位置 */
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .intro-2 {
+        font-size: 0.875rem; /* 更小的字体大小 */
+    }
+}
+
+.forum-start {
+    max-width: 72rem; /* 使用最大宽度而非固定宽度 */
+    width: 170px; /* 使元素宽度适应父容器宽度 */
+    position: absolute;
+    border-radius: 12px;
+    top: 88%;
+    left: 44%;
+    background-color: #8a2be2;
+    color: white;
+    font-family: "Anta", sans-serif;
+    font-size: 1.2rem;
+    overflow-wrap: break-word;
+    
+}

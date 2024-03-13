@@ -1,0 +1,54 @@
+.post {
+    display: flex;
+    margin-top: 7rem;
+}
+
+.container {
+    padding: 20px;
+    background-color: rgb(241, 243, 243);
+    border-radius: 14px;
+    
+}
+
+.user {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.userInfo {
+    display: flex;
+    gap: 20px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: 500;
+}
+
+.date {
+    font-size: 12px;
+}
+
+.content {
+    margin: 20px 0px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+

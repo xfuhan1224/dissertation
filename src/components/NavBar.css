@@ -1,0 +1,93 @@
+/* NavBar.css */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #dbd3fd;
+    color: black;
+    padding: 1rem;
+    z-index: 1000;
+    border-bottom: 1.5px solid #c5c5c5;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between; /* 这里是关键的改变 */
+    margin: 0;
+    padding: 0;
+    margin-right: 30px;
+}
+
+
+.nav-button {
+    background-color: #8a2be2; /* 透明背景 */
+    width: 100px; 
+    height:40px;
+    padding: 6px 10px;
+    border: 1px; /* 去除边框 */
+    color: white; /* 字体颜色与链接一致 */
+    font-size: 1.2rem; /* 字体大小与链接一致 */
+    font-family: "Anta", sans-serif;
+    cursor: pointer; /* 鼠标悬停时显示手形图标 */
+    border-radius: 12px;
+    padding: 0; /* 去除内边距 */
+  }
+  
+  .nav-button:hover {
+    color: #efe9e9; /* 悬停时的颜色，与链接一致 */
+  }
+
+  .forum-btn {
+    background-color: #8a2be2; /* 透明背景 */
+    width: 120px; 
+    height:40px;
+    padding: 6px 10px;
+    border: 1px; /* 去除边框 */
+    color: white; /* 字体颜色与链接一致 */
+    font-size: 1.2rem; /* 字体大小与链接一致 */
+    font-family: "Anta", sans-serif;
+    cursor: pointer; /* 鼠标悬停时显示手形图标 */
+    border-radius: 12px;
+    padding: 0; /* 去除内边距 */
+  }
+
+  .forum-btn:hover {
+    color: #efe9e9; /* 悬停时的颜色，与链接一致 */
+  }
+
+nav ul li a {
+    color: rgba(0,0,0,.55);
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+nav ul li a:hover {
+    color: #efe9e9; /* 更改悬停颜色，这里使用的是橙色 */
+}
+
+/* 新增样式 */
+.home-item {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.home-item a {
+    font-family: 'EB Garamond', serif;
+  }
+
+.right-items {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.right-items li {
+    margin-right: 20px;
+}
+
+.right-items li:last-child {
+    margin-right: 0;
+}
