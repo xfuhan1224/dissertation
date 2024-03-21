@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Forum = () => {
-    
-
+     
+ 
     return(
         <div className='forum-page'>
             <img className='img1'src="/4380747.jpg" alt="Forum" />

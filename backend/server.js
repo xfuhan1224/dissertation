@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
+
 const app = express();
 app.use(cookieParser());
 const corsOptions = {
@@ -16,6 +17,8 @@ const corsOptions = {
   
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 
 // 使用用户路由
 app.use('/backend/users', userRoutes);

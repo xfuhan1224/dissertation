@@ -1,46 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Comments.css';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { makeRequest } from '../axios';
+import moment from 'moment';
 
-const Comments = () => {
+interface Comment {
+    id: number;
+    name: string;
+    desc: string;
+    createdAt: string;
+}
 
-    //Tempory
+interface CommentsProps {
+    postId: number;
+}
 
-    const comments = [
-        {
-            id: 1,
-            desc: "111111111111111111111111111",
-            name: 'Andrew',
-            userId: 1,
+const Comments: React.FC<CommentsProps> = ({ postId }) => {
+    const [desc, setDesc] = useState("");
+    const queryClient = useQueryClient();
+
+    const { isLoading, error, data } = useQuery<Comment[]>({
+        queryKey: ['comments', postId],
+        queryFn: () => makeRequest.get(`/comments?postId=${postId}`).then(res => res.data),
+    });
+
+    const mutation = useMutation({
+        mutationFn: (newComment: { desc: string, postId: number }) => {
+            return makeRequest.post('/comments', {...newComment, postId }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
         },
-
-        {
-            id: 2,
-            desc: "22222222222222222222222222222",
-            name: 'James',
-            userId: 2,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['comments', postId]);
         },
-    ];
+    });
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        mutation.mutate({ desc, postId });
+        setDesc(""); 
+    };
+
+    if (error) return <div>Error loading comments...</div>;
+    if (isLoading) return <div>Loading comments...</div>;
 
     return (
         <div className="comments">
-            <div className="write">
-                <input type='text' placeholder='Write Your Comment' />
-                <button className='btnSend'>Send</button>
-            </div>
-            {comments.map(comment=>(
-                <div className="comment">
+            <form className="write" onSubmit={handleSubmit}>
+                <input 
+                    type="text" 
+                    placeholder="Write Your Comment" 
+                    value={desc}
+                    onChange={e => setDesc(e.target.value)}
+                />
+                <button type="submit" className='btnSend'>Send</button>
+            </form>
+            {data?.map(comment => (
+                <div key={comment.id} className="comment">
                     <div className="itemInfo">
                         <span>{comment.name}</span>
                         <p>{comment.desc}</p>
                     </div>
                     <span className='date'>
-                        <a>1 hour ago</a>
-                        </span>
+                        {moment(comment.createdAt).fromNow()}
+                    </span>
                 </div>
-            ))
-            }</div>
-    )
-}
-
+            ))}
+        </div>
+    );
+};
 
 export default Comments;

@@ -1,4 +1,5 @@
 import './Home.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
     return (

@@ -1,18 +1,22 @@
 .post-block {
     display: flex;
     margin-top: 8%;
-    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 20vh;
 }
 
-.card {
+.card{
+    display: flex;
     padding: 20px;
+    flex-direction: column;
     max-width: 100%;
     width: 80%;
     background-color: white;
     border-radius: 14px !important;
+    height: auto;
+    max-height: 80vh;
 }
 
 .topic {
@@ -29,8 +33,12 @@
 }
 
 .input {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 10rem;
+    max-height: 300vh;
+    height: auto; 
+    overflow-y: auto;
 }
 
 .input textarea {

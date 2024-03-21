@@ -25,39 +25,57 @@ nav ul {
 
 
 .nav-button {
-    background-color: #8a2be2; /* 透明背景 */
+    background-color: #8a2be2; 
     width: 100px; 
     height:40px;
     padding: 6px 10px;
-    border: 1px; /* 去除边框 */
-    color: white; /* 字体颜色与链接一致 */
-    font-size: 1.2rem; /* 字体大小与链接一致 */
+    border: 1px; 
+    color: white; 
+    font-size: 1.2rem; 
     font-family: "Anta", sans-serif;
-    cursor: pointer; /* 鼠标悬停时显示手形图标 */
+    cursor: pointer; 
     border-radius: 12px;
-    padding: 0; /* 去除内边距 */
+    padding: 0;
   }
   
   .nav-button:hover {
-    color: #efe9e9; /* 悬停时的颜色，与链接一致 */
+    color: #efe9e9; 
   }
 
   .forum-btn {
-    background-color: #8a2be2; /* 透明背景 */
+    background-color: #8a2be2; 
     width: 120px; 
     height:40px;
     padding: 6px 10px;
-    border: 1px; /* 去除边框 */
-    color: white; /* 字体颜色与链接一致 */
-    font-size: 1.2rem; /* 字体大小与链接一致 */
+    border: 1px; 
+    color: white; 
+    font-size: 1.2rem; 
     font-family: "Anta", sans-serif;
-    cursor: pointer; /* 鼠标悬停时显示手形图标 */
+    cursor: pointer;
     border-radius: 12px;
-    padding: 0; /* 去除内边距 */
+    padding: 0; 
   }
 
   .forum-btn:hover {
-    color: #efe9e9; /* 悬停时的颜色，与链接一致 */
+    color: #efe9e9; 
+  }
+
+  .post-btn{
+    background-color: #8a2be2; 
+    width: 100px; 
+    height:40px;
+    padding: 6px 10px;
+    border: 1px; 
+    color: white; 
+    font-size: 1.2rem; 
+    font-family: "Anta", sans-serif;
+    cursor: pointer; 
+    border-radius: 12px;
+    padding: 0;
+  }
+
+  .post-btn:hover {
+    color: #efe9e9;
   }
 
 nav ul li a {

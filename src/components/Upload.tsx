@@ -1,63 +1,96 @@
-import './Upload.css'
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import "./Upload.css";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { makeRequest } from "../axios";
 
 const Upload = () => {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [desc, setDesc] = useState("");
-
-//   const submit = async () => {
-//     try{
-//         const formData = new FormData();
-//         formData.append("file", file);
-//         const res = await makeRequest.post('/submit', formData);
-//         return res.data;    
-//     } catch (err){
-//     console.log(err);
-//     }
-//   }
-
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const queryClient = useQueryClient();
-//   const mutation= useMutation(
-//     (newPost) => {
-//         return makeRequest.post('/posts', newPost)
-//     },
-//     {
-//         onSuccess: () => {
-//             queryClient.invalidateQueries(['posts']);
-//         }
-//     }
-//   )
 
+  const mutation = useMutation({
+    mutationFn: (formData: FormData) => {
+      return makeRequest.post("/posts", formData);
+    },
+    onSuccess: () => {
+      console.log("Success");
+      queryClient.invalidateQueries(["posts"]);
+      setDesc("");
+      setFile(null);
+      setPreviewImage(null);
+    },
+  });
 
-//   const handleClick = (e) => {
-//     e.preventDefault();
-//   }
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      // 示例：仅允许上传不超过5MB的图片文件
+      if (file.size > 5242880) {
+        alert("File size should not exceed 5MB");
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        alert("Only image files are allowed");
+        return;
+      }
+      setFile(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
 
-return (
-         <div className='post-block'>
-                <div className='card'>
-                    <div className='topic'>
-                        <a>Create your post here</a>
-                    </div>
-                    <div className='input'>
-                        <textarea placeholder="What's your post desc?" name="input">
-                        </textarea>
-                    </div>
-                    <div className='submit'>
-                        <div className='submit-content'>
-                     <InsertPhotoIcon></InsertPhotoIcon>
-                     <span>Add Picture</span>
-                     </div>
-                     <button className='btnSubmit'>
-                        <a>Submit</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
-)
-}
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!desc || !file) {
+      console.log("Description or file is missing.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("desc", desc);
+    formData.append("img", file);
+
+    mutation.mutate(formData);
+  };
+
+  return (
+    <div className="post-block">
+      <form className="card" onSubmit={handleSubmit}>
+        <div className="topic">
+          <a>Create your post here</a>
+        </div>
+        <div className="input">
+          {previewImage && (
+            <img
+              src={previewImage}
+              alt="Preview"
+              style={{ maxWidth: "20%", marginBottom: "10px" }}
+            />
+          )}
+          <textarea
+            placeholder="What's your post desc?"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+          ></textarea>
+        </div>
+        <div className="submit">
+          <label className="submit-content">
+            <InsertPhotoIcon />
+            <span>Add Picture</span>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+          </label>
+          <button type="submit" className="btnSubmit">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default Upload;
