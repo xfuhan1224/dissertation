@@ -4,6 +4,7 @@
 }
 
 .container {
+    width: 100%;
     padding: 20px;
     background-color: rgb(241, 243, 243);
     border-radius: 14px;

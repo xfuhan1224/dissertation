@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&family=Noto+Serif+Ottoman+Siyaq&display=swap");
+.market-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7rem;
+  width: 100vw;
+  max-height: 300vh;
+  background-color: white;
+}
+
+.market-nav {
+  display: flex;
+  width: 95%;
+  background-color: white;
+  color: black;
+  font-family: "Noto Serif Ottoman Siyaq", serif;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 1rem;
+  z-index: 1000;
+  border-bottom: 1.5px solid #c5c5c5;
+}
+
+.active {
+  width: 4.2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background-color: White;
+}
+
+.active:hover {
+  background-color: #f9f9f9;
+}
+
+.list-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}

@@ -52,7 +52,7 @@ const Upload = () => {
     formData.append("img", file);
 
     mutation.mutate(formData);
-  };
+  };  
 
   return (
     <div className="post-block">

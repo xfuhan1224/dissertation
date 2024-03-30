@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"; // 引入 useNavigate
 const Posts = () => {
   console.log("posts");
   const navigate = useNavigate(); // 创建 navigate 实例
-
+ 
   // 使用useQuery钩子获取帖子数据
   const { isLoading, error, data } = useQuery({
     queryKey: ["posts"],

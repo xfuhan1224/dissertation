@@ -3,7 +3,8 @@ import postRoutes from './routes/posts.js';
 import commentRoutes from './routes/comments.js';
 import likeRoutes from './routes/likes.js';
 import userRoutes from './routes/users.js';
-import authRoutes from './routes/auth.js'
+import authRoutes from './routes/auth.js';
+import dropRoutes from './routes/drops.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -26,6 +27,7 @@ app.use('/backend/auth', authRoutes);
 app.use('/backend/posts', postRoutes);
 app.use('/backend/comments', commentRoutes);
 app.use('/backend/likes', likeRoutes);
+app.use('/backend/drops', dropRoutes);
 
 
 app.listen(8081, ()=> {

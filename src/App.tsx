@@ -3,8 +3,13 @@ import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import AdminLogin from "./components/AdminLogin";
+import AdminSign from "./components/AdminSign";
 import Forum from "./components/Forum";
 import Posts from "./components/Posts";
+import Market from "./components/Market";
+import CreateCollection from "./components/CreateCollection";
+import DropCollectionPage from "./components/DropCollectionPage";
 import {
   BrowserRouter as Router,
   Routes,
@@ -33,6 +38,11 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/forum" element={<Forum />} />
               <Route path="/posts" element={<Posts />} />
+              <Route path="/market" element={<Market />} />
+              <Route path="/create" element={<CreateCollection />} />
+              <Route path="/drop" element={<DropCollectionPage />} />
+              <Route path="/adminlogin" element={<AdminLogin />} />
+              <Route path="adminsign" element={<AdminSign />} />
             </Routes>
           </div>
         </Router>

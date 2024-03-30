@@ -24,6 +24,16 @@ const NavBar: React.FC = () => {
         </li>
         <div className="right-items">
           <li>
+            <Link to="/create">
+              <button className="create-btn">Create</button>
+            </Link>
+          </li>
+          <li>
+            <Link to="/market">
+              <button className="market-btn">Market</button>
+            </Link>
+          </li>
+          <li>
             <Link to="/forum">
               <button className="forum-btn">Community</button>
             </Link>
@@ -31,6 +41,11 @@ const NavBar: React.FC = () => {
           <li>
             <Link to="/posts">
               <button className="post-btn">Posts</button>
+            </Link>
+          </li>
+          <li>
+            <Link to="/adminlogin">
+              <button className="admin-btn">Admin</button>
             </Link>
           </li>
           {isLoggedIn ? (

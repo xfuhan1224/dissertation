@@ -36,7 +36,7 @@ function Login() {
 
         .then((res) => {
           if (res.data && res.data.id) {
-            setCurrentUser(res.data); // 使用从后端接收到的用户数据更新 currentUser
+            setCurrentUser(res.data);
             navigate("/");
           } else {
             alert("No record existed");
