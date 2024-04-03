@@ -1,5 +1,8 @@
 import "./Collection.css";
 import React from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../axios";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export interface CollectionProps {
   id: number;
@@ -12,6 +15,23 @@ export interface CollectionProps {
 const Collection: React.FC<{ collection: CollectionProps }> = ({
   collection,
 }) => {
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation(
+    (collectionId: number) => {
+      return makeRequest.delete("/drops/" + collectionId);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["drops"]);
+      },
+    }
+  );
+
+  const handleDelete = () => {
+    deleteMutation.mutate(collection.id);
+  };
+
   return (
     <div className="collection">
       <div className="collection-container">
@@ -24,6 +44,7 @@ const Collection: React.FC<{ collection: CollectionProps }> = ({
         </div>
         <div className="desc-container">{collection.desc}</div>
         <div className="bottom-container">
+          <DeleteIcon onClick={handleDelete} />
           <div className="stat-container">
             <h2>Minting</h2>
             <span>Now</span>

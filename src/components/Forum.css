@@ -1,73 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Anta&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-.forum-page{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+@import url("https://fonts.googleapis.com/css2?family=Anta&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+.forum-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
 }
 
 .img1 {
-    position: absolute;
-    max-width: 30rem;
-    width: 100%;
-    top:60px; /* 使用固定像素值代替百分比 */
-    left: calc(50% - 15rem); /* 使用calc函数调整位置 */
+  position: absolute;
+  max-width: 30rem;
+  width: 100%;
+  top: 60px; /* 使用固定像素值代替百分比 */
+  left: calc(50% - 15rem); /* 使用calc函数调整位置 */
 }
 
 .img1 img {
-    max-width: 25%;
-    max-height: 100vh;
-    object-fit: contain;
+  max-width: 25%;
+  max-height: 100vh;
+  object-fit: contain;
 }
 
 .intro-1 {
-    display: flex;
-    width: 100%;
-    max-width: 60rem;
-    color: #111111;
-    font-size: 2rem;
-    font-weight: 500;
-    font-family: 'Montserrat';
-    overflow-wrap: break-word;
-    position: absolute;
-    top: 30rem; /* 使用固定像素值 */
-    left: calc(50% - 15rem); /* 使用calc函数调整位置 */
+  display: flex;
+  width: 100%;
+  max-width: 60rem;
+  color: #111111;
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: "Montserrat";
+  overflow-wrap: break-word;
+  position: absolute;
+  top: 30rem; /* 使用固定像素值 */
+  left: calc(50% - 15rem); /* 使用calc函数调整位置 */
 }
 
 .intro-2 {
-    display: flex;
-    width: 100%;
-    max-width: 60rem;
-    overflow-wrap: break-word;
-    position: absolute;
-    color: #666666;
-    font-size: 1rem;
-    font-weight: 400;
-    font-family: 'Montserrat';
-    top: 35rem; /* 使用固定像素值进行调整 */
-    left: calc(50% - 30rem);
+  display: flex;
+  width: 100%;
+  max-width: 60rem;
+  overflow-wrap: break-word;
+  position: absolute;
+  color: #666666;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: "Montserrat";
+  top: 35rem; /* 使用固定像素值进行调整 */
+  left: calc(50% - 30rem);
 }
 
 .forum-start {
-    width: 170px;
-    position: absolute;
-    border-radius: 12px;
-    top: 45rem; /* 使用固定像素值 */
-    left: calc(50% - 85px); /* 使用calc函数调整位置 */
-    background-color: #8a2be2;
-    color: white;
-    font-family: "Anta", sans-serif;
-    font-size: 1.2rem;
+  width: 170px;
+  position: absolute;
+  border-radius: 12px;
+  border: none !important;
+  top: 45rem;
+  left: calc(50% - 85px);
+  background-color: #fff;
+  color: #111;
+  font-family: "Anta", sans-serif;
+  font-size: 1.2rem;
+}
+
+.forum-start:hover {
+  color: #666666;
 }
 
 @media (max-width: 768px) {
-    /* 媒体查询中的具体调整可能需要根据具体需求来决定 */
-    .intro-1, .intro-2 {
-        font-size: 1.5rem;
-    }
+  /* 媒体查询中的具体调整可能需要根据具体需求来决定 */
+  .intro-1,
+  .intro-2 {
+    font-size: 1.5rem;
+  }
 
-    .intro-2 {
-        font-size: 0.875rem;
-    }
+  .intro-2 {
+    font-size: 0.875rem;
+  }
 }

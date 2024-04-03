@@ -6,7 +6,7 @@ import { PostProps } from "./Post";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 import { useNavigate } from "react-router-dom"; // 引入 useNavigate
-
+ 
 const Posts = () => {
   console.log("posts");
   const navigate = useNavigate(); // 创建 navigate 实例
@@ -21,7 +21,7 @@ const Posts = () => {
     console.log(error);
   }
 
-  return (
+  return ( 
     <div className="posts">
       <Upload></Upload>
       {error

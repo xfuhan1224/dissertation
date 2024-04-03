@@ -4,11 +4,14 @@ import React, { createContext, useEffect, useState, ReactNode } from "react";
 interface User {
   id: number;
   name: string;
+  profilePic: string;
+  joinedAt: string;
 }
 
 interface AuthContextType {
   currentUser: User | null;
   login: (inputs: any) => Promise<void>;
+  fetchUserInfo: () => Promise<void>;
   setCurrentUser: (user: User | null) => void;
 }
 
@@ -16,6 +19,7 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType>({
   currentUser: null,
   login: async () => {},
+  fetchUserInfo: async () => {},
   setCurrentUser: () => {},
 });
 
@@ -41,6 +45,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       );
       setCurrentUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
+      await fetchUserInfo();
       const postsRes = await axios.get("http://localhost:8081/backend/posts", {
         withCredentials: true,
       });
@@ -49,12 +54,32 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
     }
   };
 
+  const fetchUserInfo = async () => {
+    if (currentUser) {
+      try {
+        const res = await axios.get(
+          `http://localhost:8081/backend/auth/${currentUser.id}`,
+          { withCredentials: true }
+        );
+        setCurrentUser({ ...currentUser, ...res.data }); // 合并现有的currentUser信息与获取的用户信息
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ ...currentUser, ...res.data })
+        );
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, setCurrentUser }}>
+    <AuthContext.Provider
+      value={{ currentUser, login, fetchUserInfo, setCurrentUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

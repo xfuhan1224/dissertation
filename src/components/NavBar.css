@@ -7,11 +7,11 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #dbd3fd;
+  background-color: #ffffff;
   color: black;
   padding: 1rem;
   z-index: 1000;
-  border-bottom: 1.5px solid #c5c5c5;
+  border-bottom: 1.5px solid #e9e9e9;
 }
 
 nav ul {
@@ -24,12 +24,12 @@ nav ul {
 }
 
 .nav-button {
-  background-color: #8a2be2;
+  background-color: #ffffff;
   width: 100px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: rgb(14, 14, 14);
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -38,16 +38,40 @@ nav ul {
 }
 
 .nav-button:hover {
-  color: #efe9e9;
+  color: #666666;
+}
+
+.nav-button:disabled {
+  background-color: #c8c8c8;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.adminLogout-btn {
+  background-color: #ffffff;
+  width: 140px;
+  height: 40px;
+  padding: 6px 10px;
+  border: 1px;
+  color: rgb(16, 16, 16);
+  font-size: 1.2rem;
+  font-family: "Anta", sans-serif;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 0;
+}
+
+.adminLogout-btn:hover {
+  color: #666666;
 }
 
 .forum-btn {
-  background-color: #8a2be2;
+  background-color: #ffffff;
   width: 120px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: rgb(19, 19, 19);
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -56,16 +80,16 @@ nav ul {
 }
 
 .forum-btn:hover {
-  color: #efe9e9;
+  color: #666666;
 }
 
 .post-btn {
-  background-color: #8a2be2;
+  background-color: #fff;
   width: 100px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: #111;
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -74,16 +98,16 @@ nav ul {
 }
 
 .post-btn:hover {
-  color: #efe9e9;
+  color: #666666;
 }
 
 .market-btn {
-  background-color: #8a2be2;
+  background-color: #fff;
   width: 100px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: #111;
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -92,16 +116,16 @@ nav ul {
 }
 
 .market-btn:hover {
-  color: #efe9e9;
+  color: #666666;
 }
 
 .admin-btn {
-  background-color: #8a2be2;
+  background-color: #fff;
   width: 100px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: #111;
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -109,15 +133,15 @@ nav ul {
   padding: 0;
 }
 .admin-btn:hover {
-  color: #efe9e9;
+  color: #666666;
 }
 .create-btn {
-  background-color: #8a2be2;
+  background-color: #fff;
   width: 100px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: #111;
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -126,7 +150,7 @@ nav ul {
 }
 
 .create-btn:hover {
-  color: #efe9e9;
+  color: #666666;
 }
 
 nav ul li a {

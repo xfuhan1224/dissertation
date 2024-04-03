@@ -2,18 +2,27 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { AuthContext } from "./authContext";
-
+import { AdminContext } from "./adminContext";
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
 
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentAdmin, setCurrentAdmin } = useContext(AdminContext);
   const isLoggedIn = currentUser !== null;
+  const isAdminLoggedIn = currentAdmin !== null;
 
   const handleLogout = () => {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
     setCurrentUser(null);
     navigate("/login");
+  };
+
+  const handleAdminLogout = () => {
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    setCurrentAdmin(null);
+    navigate("/adminlogin");
   };
 
   return (
@@ -43,21 +52,51 @@ const NavBar: React.FC = () => {
               <button className="post-btn">Posts</button>
             </Link>
           </li>
-          <li>
-            <Link to="/adminlogin">
-              <button className="admin-btn">Admin</button>
-            </Link>
-          </li>
-          {isLoggedIn ? (
+          {!isAdminLoggedIn && (
+            <li>
+              <Link to="/adminlogin">
+                <button className="nav-button" disabled={isLoggedIn}>
+                  Admin
+                </button>
+              </Link>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li>
+              <Link to="/login">
+                <button className="nav-button" disabled={isAdminLoggedIn}>
+                  Login
+                </button>
+              </Link>
+            </li>
+          )}
+          {isAdminLoggedIn && (
+            <li>
+              <button onClick={handleAdminLogout} className="adminLogout-btn">
+                AdminLogout
+              </button>
+            </li>
+          )}
+          {isLoggedIn && (
             <li>
               <button onClick={handleLogout} className="nav-button">
                 Logout
               </button>
             </li>
-          ) : (
-            <li>
-              <Link to="/login">
-                <button className="nav-button">Login</button>
+          )}
+          {isLoggedIn && (
+            <li className="profile-icon-container">
+              <Link to="/profile">
+                <img
+                  src={`http://localhost:8081/${currentUser?.profilePic}`}
+                  alt="Profile"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                />
               </Link>
             </li>
           )}

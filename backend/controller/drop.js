@@ -30,46 +30,58 @@ export const addCollection = (req, res) => {
       return res.status(400).json("No file uploaded.");
     }
 
-    const imgPath = req.file.path;
-    const q =
-      "INSERT INTO collections (`desc`, `img`, `price`, `userId`) VALUES (?, ?, ?, ?)";
+    const qCheckRevoked = "SELECT isRevoked FROM login WHERE id = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      if (data[0].isRevoked) return res.status(403).json("Account is revoked");
 
-    const values = [req.body.desc, imgPath, req.body.price, userInfo.id];
+      const imgPath = req.file.path;
+      const q =
+        "INSERT INTO collections (`desc`, `img`, `price`, `userId`) VALUES (?, ?, ?, ?)";
 
-    try {
-      db.query(q, values, (error, data) => {
-        if (error) {
-          console.error(error);
-          return res
-            .status(500)
-            .json("Failed to add the collection due to an internal error.");
-        }
-        return res.status(200).json("Collection has been created");
-      });
-    } catch (error) {
-      // 这个catch可能捕获db.query执行之前的任何异常
-      console.error(error); // 记录异常详情以便调试
-      return res.status(500).json("An unexpected error occurred.");
-    }
+      const values = [req.body.desc, imgPath, req.body.price, userInfo.id];
+
+      try {
+        db.query(q, values, (error, data) => {
+          if (error) {
+            console.error(error);
+            return res
+              .status(500)
+              .json("Failed to add the collection due to an internal error.");
+          }
+          return res.status(200).json("Collection has been created");
+        });
+      } catch (error) {
+        // 这个catch可能捕获db.query执行之前的任何异常
+        console.error(error); // 记录异常详情以便调试
+        return res.status(500).json("An unexpected error occurred.");
+      }
+    });
   });
 };
 
 export const deleteCollection = (req, res) => {
+  console.log("Delete request received for collection with ID:", req.params.id);
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not logged in!");
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-
-    const q = "DELETE FROM collections WHERE `id`=? AND `userId` = ?";
-
-    const values = [req.params.id, userInfo.id];
-
-    db.query(q, values, (err, data) => {
+    const qCheckRevoked = "SELECT isRevoked FROM login WHERE id = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
-      if (data.affectedRows > 0)
-        return res.status(200).json("Collection has been deleted.");
-      return res.status(403).json("You can delete only your collection");
+      if (data[0].isRevoked) return res.status(403).json("Account is revoked");
+
+      const q = "DELETE FROM collections WHERE `id`=? AND `userId` = ?";
+
+      const values = [req.params.id, userInfo.id];
+
+      db.query(q, values, (err, data) => {
+        if (err) return res.status(500).json(err);
+        if (data.affectedRows > 0)
+          return res.status(200).json("Collection has been deleted.");
+        return res.status(403).json("You can delete only your collection");
+      });
     });
   });
 };

@@ -11,7 +11,7 @@ import { formatDistanceToNow } from "date-fns";
 import { AuthContext } from "./authContext";
 
 export interface PostProps {
-  id: number;
+  id: number; 
   name: string;
   userId: number;
   desc: string;

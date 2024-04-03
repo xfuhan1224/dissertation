@@ -1,52 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
 
 .home-frame {
-    position: relative;
-    /* 确保这个容器覆盖整个视图区域 */
-    width: 100vw;
-    height: 100vh;
-    background-color: #dbd3fd;
-  }
-  
-  .full-screen-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .di-mar {
-    position: absolute;
-    top: 18%; /* 调整为所需的位置 */
-    left: 10%;
-    color: black; /* 确保颜色在你的图片背景上可见 */
-    font-size: 4rem; /* 调整为所需的大小 */
-    font-weight: 500;
-    font-style: italic;
-    z-index: 10; /* 确保这个值大于图片的 z-index */
-  }
-  
-  .intro-a {
-    max-width: 60rem; /* 使用最大宽度而非固定宽度 */
-    width: 100%; /* 使元素宽度适应父容器宽度 */
-    position: absolute;
-    top: 32%;
-    left: 10%;
-    color: #666666;
-    font-size: 25px;
-    font-weight: 300;
-    font-family: 'Montserrat';
-    overflow-wrap: break-word; /* 允许在必要时断词 */
-  }
-  
-  @media (max-width: 768px) {
-    .intro-a {
-      font-size: 20px; /* 在较小屏幕上减小字体大小 */
-      max-width: 100%; /* 在较小屏幕上可能需要更小的最大宽度 */
-    }
-  }
-
-
+  position: relative;
+  /* 确保这个容器覆盖整个视图区域 */
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+}
  
+.full-screen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.di-mar {
+  position: absolute;
+  top: 18%; /* 调整为所需的位置 */
+  left: 10%;
+  color: rgb(24, 24, 24); /* 确保颜色在你的图片背景上可见 */
+  font-size: 4rem; /* 调整为所需的大小 */
+  font-weight: 500;
+  font-style: italic;
+  z-index: 10; /* 确保这个值大于图片的 z-index */
+}
+
+.intro-a {
+  max-width: 60rem; /* 使用最大宽度而非固定宽度 */
+  width: 100%; /* 使元素宽度适应父容器宽度 */
+  position: absolute;
+  top: 32%;
+  left: 10%;
+  color: #363636;
+  font-size: 25px;
+  font-weight: 300;
+  font-family: "Montserrat";
+  overflow-wrap: break-word; /* 允许在必要时断词 */
+}
+
+@media (max-width: 768px) {
+  .intro-a {
+    font-size: 20px; /* 在较小屏幕上减小字体大小 */
+    max-width: 100%; /* 在较小屏幕上可能需要更小的最大宽度 */
+  }
+}

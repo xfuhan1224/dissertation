@@ -79,12 +79,12 @@
 }
 
 .deploy-btn {
-  background-color: #8a2be2;
+  background-color: #fff;
   width: 100px;
   height: 40px;
   padding: 6px 10px;
   border: 1px;
-  color: white;
+  color: #111;
   font-size: 1.2rem;
   font-family: "Anta", sans-serif;
   cursor: pointer;
@@ -95,10 +95,14 @@
   right: 20px;
 }
 
+.deploy-btn:hover {
+  color: #666666;
+}
+
 .instruction-part {
   padding: 20px;
   width: 400px;
-  height: 380px;
+  height: 420px;
   overflow: auto;
   margin-top: 10rem;
   margin-right: 20rem;

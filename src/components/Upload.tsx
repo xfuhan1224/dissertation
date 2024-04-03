@@ -35,7 +35,7 @@ const Upload = () => {
         alert("Only image files are allowed");
         return;
       }
-      setFile(file);
+      setFile(file); 
       setPreviewImage(URL.createObjectURL(file));
     }
   };

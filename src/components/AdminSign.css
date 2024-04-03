@@ -1,0 +1,111 @@
+.sing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.sing-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90%;
+  width: 400px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.sing-frame h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-p,
+.password-p,
+.name-i {
+  margin-bottom: 15px;
+  color: #666666;
+  width: 300px !important;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="name"],
+input[type="email"],
+input[type="password"],
+.btn-success {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.btn-success {
+  background-color: #2a68f7;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+.profilePic-upload-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.profilePic-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profilePic-placeholder {
+  text-align: center;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .sing-frame {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .profilePic-upload-container,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  .btn-success {
+    width: 100%;
+  }
+}

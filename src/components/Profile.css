@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.profile-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15rem;
+}
+
+.profile-up {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 80%;
+  align-items: start;
+  gap: 10px;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  background-color: #f0f0f0;
+  border-radius: 60px;
+  background-image: url("/path/to/image");
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-userName {
+  font-size: 2rem;
+  color: #333;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+}
+
+.profile-createdAt {
+  font-size: 20px;
+  color: #6c6c6c;
+  font-family: "Open Sans", sans-serif;
+}
+
+.profile-mid {
+  width: 80%;
+  margin-top: 1rem;
+  border-bottom: 1.5px solid #dddddd;
+  padding-bottom: 40px;
+}
+
+.profile-nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  margin-top: 20px;
+  gap: 40px;
+  width: 80%;
+}
+
+.profile-nav button {
+  width: 120px;
+  height: 50px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  color: #5a5a5a;
+  background-color: #fff;
+  font-weight: 600;
+  border: none;
+}
+
+.nav-btn.selected {
+  background-color: #f6f6f6;
+}
+
+.profile-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  height: 500px;
+  width: 100%;
+}
+
+.item-number {
+  display: flex;
+  width: 80%;
+  justify-content: start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+}
+
+.listed-items {
+  display: flex;
+  flex-wrap: wrap;
+  height: 500px;
+  width: 80%;
+  gap: 15px;
+  justify-content: center;
+  border: 1px solid #cacaca;
+  border-radius: 12px;
+}
+
+/* 根据需要调整媒体查询以实现响应式设计 */
+@media (max-width: 768px) {
+  .profile-home {
+    flex-direction: column;
+  }
+
+  .profile-nav button,
+  .favoritedBtn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .listed-items {
+    flex-direction: column;
+    align-items: center;
+  }
+}

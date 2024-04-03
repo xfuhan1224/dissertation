@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get("/", getCollections);
 router.post("/", upload.single("img"), addCollection);
-router.delete("/", deleteCollection);
+router.delete("/:id", deleteCollection);
 
 export default router;

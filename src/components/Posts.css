@@ -1,92 +1,89 @@
 .posts {
-    display: flex;
-    flex-direction: column;
-    background-color: #dbd3fd;
-    min-height: 100vh;
-    
-    
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  min-height: 100vh;
 }
 
 .post-block {
-    display: flex;
-    margin-top: 8%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 20vh;
+  display: flex;
+  margin-top: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
 }
 
 .card {
-    padding: 20px;
-    max-width: 100%;
-    width: 80%;
-    background-color: rgb(241, 243, 243);
-    border-radius: 14px !important;
+  padding: 20px;
+  max-width: 100%;
+  width: 80%;
+  background-color: rgb(241, 243, 243);
+  border-radius: 14px !important;
 }
 
 .topic {
-    display: flex;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #e3e3e3;
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e3e3e3;
 }
 
-.topic a{
-    font-size: 28px;
-    font-family: EB Garamond;
-    margin-bottom: 5px;
-    font-weight: 800;
+.topic a {
+  font-size: 28px;
+  font-family: EB Garamond;
+  margin-bottom: 5px;
+  font-weight: 800;
 }
 
 .input {
-    width: 100%;
-    height: 10rem;
+  width: 100%;
+  height: 10rem;
 }
 
 .input textarea {
-    width: 100%;
-    height: 9.5rem;
-    border-radius: 6px;
-    border: 1px solid #e3e3e3;
-    box-sizing: border-box;
+  width: 100%;
+  height: 9.5rem;
+  border-radius: 6px;
+  border: 1px solid #e3e3e3;
+  box-sizing: border-box;
 }
 
 .submit {
-    border-top: 1px solid #e3e3e3;
-    display: flex;
-    width: 100%;
-    height: 2rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: .6rem;
+  border-top: 1px solid #e3e3e3;
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 0.6rem;
 }
 
 .submit-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
 }
 
-.submit span{
-    margin-top: 0.1rem;
-    font-size: 18px;
-    font-family: EB Garamond;
-    font-weight: 800;
+.submit span {
+  margin-top: 0.1rem;
+  font-size: 18px;
+  font-family: EB Garamond;
+  font-weight: 800;
 }
 
 .btnSubmit {
-    align-items: end;
-    background-color: #8a2be2;
-    width: 90px;
-    height: 30px;
-    border-radius: 12px;
-    font-family: "Anta", sans-serif;
-    font-size: .8rem;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 1rem;
+  align-items: end;
+  background-color: #8a2be2;
+  width: 90px;
+  height: 30px;
+  border-radius: 12px;
+  font-family: "Anta", sans-serif;
+  font-size: 0.8rem;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
 }
-

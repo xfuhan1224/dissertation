@@ -44,7 +44,6 @@ function Login() {
         })
         .catch((err) => {
           console.error("Login failed", err);
-          // 根据err.response.data可以获取后端返回的具体错误信息
           if (err.response && err.response.data) {
             alert(err.response.data);
           } else {
@@ -57,13 +56,15 @@ function Login() {
   return (
     <div className="lgn-page">
       <div className="lgn-frame">
-        <h2>Sign in</h2>
+        <h2>Welcome</h2>
+        <p>Create an account or log in to access NFTinusite</p>
+
         <form onSubmit={handleSubmit}>
           <div className="email-p">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email address</label>
             <input
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter your email"
               name="email"
               onChange={handleInput}
             />
@@ -72,10 +73,10 @@ function Login() {
             )}
           </div>
           <div className="password-p">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Your Password</label>
             <input
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter your password"
               name="password"
               onChange={handleInput}
             />
@@ -88,11 +89,11 @@ function Login() {
           </button>
 
           <div className="signupguide">
-            <p>Click the button if you don't have an account</p>
+            <p>Don't have an account yet?</p>
+            <Link to="/signup" className="btn-create">
+              <div className="create-word">Sign up.</div>
+            </Link>
           </div>
-          <Link to="/signup" className="btn-create">
-            <div className="create-word">Create Account</div>
-          </Link>
         </form>
       </div>
     </div>
