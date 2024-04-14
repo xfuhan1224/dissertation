@@ -11,7 +11,7 @@ import { formatDistanceToNow } from "date-fns";
 import { AuthContext } from "./authContext";
 
 export interface PostProps {
-  id: number; 
+  id: number;
   name: string;
   userId: number;
   desc: string;
@@ -56,6 +56,15 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
       onSuccess: () => {
         queryClient.invalidateQueries(["likes", post.id]);
       },
+      onError: (error: any) => {
+        if (error.response && error.response.status === 403) {
+          alert(
+            "You're unable to perform because your account has been revoked."
+          );
+        } else {
+          alert("An error occurred while trying to post the comment.");
+        }
+      },
     }
   );
 
@@ -66,6 +75,16 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["posts"]);
+      },
+      onError: (error: any) => {
+        // 错误处理逻辑，例如显示一个消息
+        if (error.response && error.response.status === 403) {
+          alert(
+            "You're unable to delete because your account has been revoked."
+          );
+        } else {
+          alert("An error occurred while trying to post the comment.");
+        }
       },
     }
   );

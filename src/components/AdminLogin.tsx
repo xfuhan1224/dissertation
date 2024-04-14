@@ -86,12 +86,12 @@ function AdminLogin() {
             Log in
           </button>
 
-          <div className="signupguide">
+          {/* <div className="signupguide">
             <p>Don't have an account yet?</p>
             <Link to="/adminsign" className="btn-create">
               <div className="create-word">Admin sign</div>
             </Link>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

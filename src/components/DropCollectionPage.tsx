@@ -27,8 +27,15 @@ const DropCollectionPage = () => {
       setImage(null);
       setPreviewUrl(null);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error("Upload failed:", error);
+      if (error.response && error.response.status === 403) {
+        alert(
+          "You're unable to drop because your account has been revoked."
+        );
+      } else {
+        alert("An error occurred while trying to post the comment.");
+      }
     },
   });
 
@@ -53,7 +60,7 @@ const DropCollectionPage = () => {
       if (previewUrl) {
         URL.revokeObjectURL(previewUrl);
         setPreviewUrl(""); // 清理预览URL状态
-      } 
+      }
     };
   }, [previewUrl]);
 
@@ -62,7 +69,7 @@ const DropCollectionPage = () => {
     if (!name || !image) {
       console.log("Description or file is missing.");
       return;
-    } 
+    }
 
     const formData = new FormData();
     formData.append("desc", name);

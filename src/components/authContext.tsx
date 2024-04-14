@@ -6,6 +6,7 @@ interface User {
   name: string;
   profilePic: string;
   joinedAt: string;
+  isRevoked: boolean;
 }
 
 interface AuthContextType {

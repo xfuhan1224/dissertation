@@ -33,6 +33,12 @@
   font-family: "Open Sans", sans-serif;
 }
 
+.timeAndKey-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .profile-createdAt {
   font-size: 20px;
   color: #6c6c6c;

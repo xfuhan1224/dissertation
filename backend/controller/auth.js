@@ -1,10 +1,14 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { generateKeyPair } from "../keyPairService.js";
+import { generateCSR } from "../keyPairService.js";
+// import { requestCASignature } from "../caService.js";
+import { requestCASignatureWithCSR } from "../caService.js";
 
-export const register = (req, res) => {
+export const register = async (req, res) => {
   const q = "SELECT * FROM login WHERE email = ?";
-  db.query(q, [req.body.email], (err, data) => {
+  db.query(q, [req.body.email], async (err, data) => {
     if (err) {
       console.error("Error querying the database: ", err);
       return res.status(500).json(err);
@@ -12,31 +16,62 @@ export const register = (req, res) => {
     if (data.length) {
       return res.status(409).json("User already exists");
     } else {
+      const { publicKey, privateKey } = generateKeyPair();
       const salt = bcrypt.genSaltSync(10);
+      if (!req.body.password) {
+        return res.status(400).send("No password provided");
+      }
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-      const q1 =
-        "INSERT INTO login (`profilePic`, `name`, `email`, `password`, `joinedAt`, `isRevoked`) VALUES (?, ?, ?, ?, ?, ?)";
-      const imgPath = req.file ? req.file.path : "";
-      const joinedAt = new Date().toISOString().slice(0, 10);
-      const isRevoked = 0;
-      db.query(
-        q1,
-        [
-          imgPath,
-          req.body.name,
-          req.body.email,
-          hashedPassword,
-          joinedAt,
-          isRevoked,
-        ],
-        (err, data) => {
-          if (err) {
-            console.error("Error inserting new user: ", err);
-            return res.status(500).json(err);
+
+      // 创建CSR的主题属性
+      const subjectAttributes = [
+        { name: "commonName", value: req.body.name },
+        { name: "emailAddress", value: req.body.email },
+      ];
+
+      try {
+        // 生成CSR
+        const csrPem = generateCSR(publicKey, privateKey, subjectAttributes);
+        // 发送CSR到CA并接收签名的证书
+        const signedCertificatePem = await requestCASignatureWithCSR(
+          csrPem,
+          privateKey
+        );
+
+        // 存储用户信息及其签名证书
+        const q1 =
+          "INSERT INTO login (`profilePic`, `name`, `email`, `password`, `joinedAt`, `isRevoked`, `publicKey`, `certificate`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        const imgPath = req.file ? req.file.path : "";
+        const joinedAt = new Date().toISOString().slice(0, 10);
+        const isRevoked = 0;
+        db.query(
+          q1,
+          [
+            imgPath,
+            req.body.name,
+            req.body.email,
+            hashedPassword,
+            joinedAt,
+            isRevoked,
+            publicKey, // 仍然存储公钥
+            signedCertificatePem, // 新增：存储签名证书
+          ],
+          (err, data) => {
+            if (err) {
+              console.error("Error inserting new user: ", err);
+              return res.status(500).json(err);
+            }
+            return res.status(200).json({
+              message: "User has been created.",
+              publicKey: publicKey, // 返回公钥
+              certificate: signedCertificatePem, // 新增：返回签名证书
+            });
           }
-          return res.status(200).json("User has been created.");
-        }
-      );
+        );
+      } catch (error) {
+        console.error("Error during registration:", error);
+        res.status(500).json({ message: "Error during registration process" });
+      }
     }
   });
 };

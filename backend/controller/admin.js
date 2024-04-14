@@ -1,30 +1,47 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { generateKeyPair } from "../keyPairService.js";
 
 export const adminRegister = (req, res) => {
   const q = "SELECT * FROM admin WHERE adminname = ?";
   db.query(q, [req.body.name], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) {
-      return res.status(409).json("User already exists");
+      return res.status(409).json("Admin already exists");
     } else {
-      //create new admin
+      const { publicKey, privateKey } = generateKeyPair();
+
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
       const q1 =
-        "INSERT INTO admin (`adminname`, `adminemail`, `adminpassword`) VALUES (?, ?, ?)";
+        "INSERT INTO admin (`adminname`, `adminemail`, `adminpassword`, `publicKey`, `privateKey`) VALUES (?, ?, ?, ?, ?)";
       db.query(
         q1,
-        [req.body.name, req.body.email, hashedPassword],
+        [req.body.name, req.body.email, hashedPassword, publicKey, privateKey],
         (err, data) => {
           if (err) return res.status(500).json(err);
-          return res.status(200).json("User has been created.");
+          return res.status(200).json("Admin has been created.");
         }
       );
     }
   });
 };
+
+export function getAdminPrivateKey(adminEmail) {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT privateKey FROM admin WHERE adminemail = ?";
+    db.query(query, [adminEmail], (err, results) => {
+      if (err) {
+        reject(err);
+      } else if (results.length > 0) {
+        resolve(results[0].privateKey);
+      } else {
+        reject(new Error("Admin not found"));
+      }
+    });
+  });
+}
 
 export const adminLogin = (req, res) => {
   const q = "SELECT * FROM admin WHERE adminemail = ?";
@@ -38,7 +55,10 @@ export const adminLogin = (req, res) => {
     );
     if (!checkPassword)
       return res.status(400).json("Wrong password or username");
+
+    // 修改这里：在token中加入角色信息
     const token = jwt.sign({ id: data[0].id }, "secretkey");
+
     const { adminpassword, ...others } = data[0];
     res
       .cookie("accessToken", token, {
@@ -57,4 +77,15 @@ export const adminLogout = (req, res) => {
     })
     .status(20)
     .json("User has been logged out");
+};
+
+export const getUsersList = (req, res) => {
+  const q = "SELECT `id`, `name`, `email` FROM login";
+  db.query(q, (err, data) => {
+    if (err) {
+      console.error("Error querying the database:", err);
+      return res.status(500).json("Internal server error");
+    }
+    res.status(200).json(data);
+  });
 };

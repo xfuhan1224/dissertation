@@ -9,6 +9,8 @@ import Forum from "./components/Forum";
 import Posts from "./components/Posts";
 import Market from "./components/Market";
 import Profile from "./components/Profile";
+import CollectionDetail from "./components/CollectionDetail";
+import AdminRevokePage from "./components/AdminRevokePage";
 import CreateCollection from "./components/CreateCollection";
 import DropCollectionPage from "./components/DropCollectionPage";
 import {
@@ -47,6 +49,8 @@ function App() {
                 <Route path="/drop" element={<DropCollectionPage />} />
                 <Route path="/adminlogin" element={<AdminLogin />} />
                 <Route path="adminsign" element={<AdminSign />} />
+                <Route path="adminrevokepage" element={<AdminRevokePage />} />
+                <Route path="/collections/:id" element={<CollectionDetail />} />
               </Routes>
             </div>
           </Router>

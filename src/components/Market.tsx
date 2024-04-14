@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 
 const Market = () => {
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["drops"],
     queryFn: () => makeRequest.get("/drops").then((res) => res.data),
@@ -19,6 +18,7 @@ const Market = () => {
     console.error(error);
     return <div>Error loading data</div>;
   }
+
   return (
     <div className="market-block">
       <div className="market-nav">

@@ -65,6 +65,24 @@ nav ul {
   color: #666666;
 }
 
+.revoke-btn {
+  background-color: #ffffff;
+  width: 100px;
+  height: 40px;
+  padding: 6px 10px;
+  border: 1px;
+  color: rgb(16, 16, 16);
+  font-size: 1.2rem;
+  font-family: "Anta", sans-serif;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 0;
+}
+
+.revoke-btn:hover {
+  color: #666666;
+}
+
 .forum-btn {
   background-color: #ffffff;
   width: 120px;

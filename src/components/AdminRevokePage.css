@@ -1,0 +1,59 @@
+.adminRevokePg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  max-height: 300vh;
+  background-color: #fff;
+  margin-top: 7rem;
+}
+
+.adminRevokeCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  border-radius: 12px;
+  border: 1px solid #dddddd;
+  gap: 5px;
+}
+
+.userToBeRevoked {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-between;
+  width: 70%;
+  gap: 20px;
+}
+
+.revokeUserInfo-name,
+.revokeUserInfo-email {
+  width: 45%;
+}
+
+.revokeUserBtns {
+  display: flex;
+  align-items: center;
+  width: 25%;
+  justify-content: space-between;
+}
+
+.revokeUserProfileBtn {
+  display: flex;
+  align-items: center;
+  background-color: #13b001;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+}
+
+.revokeUserBtn {
+  display: flex;
+  align-items: center;
+  background-color: #13b001;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+}

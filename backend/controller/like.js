@@ -17,10 +17,15 @@ export const addLike = (req, res) => {
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
-    const qCheckRevoked = "SELECT isRevoked FROM login WHERE id = ?";
-    db.query(qCheckRevoked, [userInfo.id], (err, data) => {
-      if (err) return res.status(500).json(err);
-      if (data[0].isRevoked) return res.status(403).json("Account is revoked");
+    const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
+      if (err) {
+        console.error("Error querying the RevocationList:", err);
+        return res.status(500).json("Internal server error");
+      }
+      if (revocationData.length > 0) {
+        return res.status(403).json("This account has been revoked.");
+      }
 
       const q = "INSERT INTO likes (`userId`, `postId`) VALUES (?, ?)";
 
@@ -40,10 +45,15 @@ export const deleteLike = (req, res) => {
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
-    const qCheckRevoked = "SELECT isRevoked FROM login WHERE id = ?";
-    db.query(qCheckRevoked, [userInfo.id], (err, data) => {
-      if (err) return res.status(500).json(err);
-      if (data[0].isRevoked) return res.status(403).json("Account is revoked");
+    const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
+      if (err) {
+        console.error("Error querying the RevocationList:", err);
+        return res.status(500).json("Internal server error");
+      }
+      if (revocationData.length > 0) {
+        return res.status(403).json("This account has been revoked.");
+      }
 
       const q = "DELETE FROM likes WHERE `userId` = ? AND `postId` = ?";
 

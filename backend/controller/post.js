@@ -19,23 +19,28 @@ export const getPosts = (req, res) => {
 };
 
 export const addPost = (req, res) => {
-  console.log(req.body);
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not Logged in");
 
-  jwt.verify(token, "secretkey", (err, userInfo) => {
+  jwt.verify(token, "secretkey", async (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
-    if (!req.file) return res.status(400).json("No file uploaded.");
 
-    const qCheckRevoked = "SELECT isRevoked FROM login WHERE id = ?";
-    db.query(qCheckRevoked, [userInfo.id], (err, data) => {
-      if (err) return res.status(500).json(err);
-      if (data[0].isRevoked) return res.status(403).json("Account is revoked");
+    // 首先检查用户的证书是否被撤销
+    const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
+      if (err) {
+        console.error("Error querying the RevocationList:", err);
+        return res.status(500).json("Internal server error");
+      }
+      if (revocationData.length > 0) {
+        return res.status(403).json("This account has been revoked.");
+      }
 
+      // 用户的证书未被撤销，继续发帖逻辑
+      if (!req.file) return res.status(400).json("No file uploaded.");
       const imgPath = req.file.path;
       const q =
         "INSERT INTO posts (`desc`, `img`, `createdAt`, `userId`) VALUES (?, ?, ?, ?)";
-
       const values = [
         req.body.desc,
         imgPath,
@@ -44,8 +49,10 @@ export const addPost = (req, res) => {
       ];
 
       db.query(q, values, (err, data) => {
-        // 使用参数化查询
-        if (err) return res.status(500).json(err);
+        if (err) {
+          console.error("Error inserting new post:", err);
+          return res.status(500).json("Internal server error");
+        }
         return res.status(200).json("Post has been created");
       });
     });
@@ -58,10 +65,15 @@ export const deletePost = (req, res) => {
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-    const qCheckRevoked = "SELECT isRevoked FROM login WHERE id = ?";
-    db.query(qCheckRevoked, [userInfo.id], (err, data) => {
-      if (err) return res.status(500).json(err);
-      if (data[0].isRevoked) return res.status(403).json("Account is revoked");
+    const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
+      if (err) {
+        console.error("Error querying the RevocationList:", err);
+        return res.status(500).json("Internal server error");
+      }
+      if (revocationData.length > 0) {
+        return res.status(403).json("This account has been revoked.");
+      }
 
       const q = "DELETE FROM posts WHERE `id`=? AND `userId` = ?";
 

@@ -52,6 +52,13 @@ const NavBar: React.FC = () => {
               <button className="post-btn">Posts</button>
             </Link>
           </li>
+          {isAdminLoggedIn && (
+            <li>
+              <Link to="/adminrevokepage">
+                <button className="revoke-btn">Revoke</button>
+              </Link>
+            </li>
+          )}
           {!isAdminLoggedIn && (
             <li>
               <Link to="/adminlogin">

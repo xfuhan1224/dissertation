@@ -1,14 +1,16 @@
 import "./Upload.css";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { makeRequest } from "../axios";
+import { AuthContext } from "./authContext";
 
 const Upload = () => {
   const [file, setFile] = useState<File | null>(null);
   const [desc, setDesc] = useState("");
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const queryClient = useQueryClient();
+  const { currentUser } = useContext(AuthContext);
 
   const mutation = useMutation({
     mutationFn: (formData: FormData) => {
@@ -35,7 +37,7 @@ const Upload = () => {
         alert("Only image files are allowed");
         return;
       }
-      setFile(file); 
+      setFile(file);
       setPreviewImage(URL.createObjectURL(file));
     }
   };
@@ -51,8 +53,16 @@ const Upload = () => {
     formData.append("desc", desc);
     formData.append("img", file);
 
-    mutation.mutate(formData);
-  };  
+    mutation.mutate(formData, {
+      onError: (error: any) => {
+        if (error.response && error.response.status === 403) {
+          alert("You're unable to post because your account has been revoked.");
+        } else {
+          alert("An unexpected error occurred.");
+        }
+      },
+    });
+  };
 
   return (
     <div className="post-block">
