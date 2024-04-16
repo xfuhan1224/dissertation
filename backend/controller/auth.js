@@ -22,7 +22,7 @@ export const register = async (req, res) => {
         return res.status(400).send("No password provided");
       }
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
+ 
       // 创建CSR的主题属性
       const subjectAttributes = [
         { name: "commonName", value: req.body.name },

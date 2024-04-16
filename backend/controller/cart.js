@@ -30,32 +30,29 @@ export const addToCart = (req, res) => {
       return res.status(403).json("Token is not valid");
     }
 
-    const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
-    db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
+    const { collectionId } = req.body;
+    const userId = userInfo.id;
+
+    const qCheckExists =
+      "SELECT * FROM cart WHERE userId = ? AND collectionId = ?";
+    db.query(qCheckExists, [userId, collectionId], (err, results) => {
       if (err) {
-        console.error("Error querying the RevocationList:", err);
+        console.error("Database error:", err);
         return res.status(500).json("Internal server error");
       }
-      if (revocationData.length > 0) {
-        return res.status(403).json("This account has been revoked.");
-      }
-
-      const q = "INSERT INTO cart (userId, collectionId) VALUES (?, ?)";
-      const values = [userInfo.id, req.body.collectionId];
-      try {
-        db.query(q, values, (error, data) => {
+      if (results.length > 0) {
+        // 这里可以选择更新数量或者直接返回存在信息
+        return res.status(409).json("Item already in cart"); // 409 Conflict
+      } else {
+        // 不存在，执行添加操作
+        const qAdd = "INSERT INTO cart (userId, collectionId) VALUES (?, ?)";
+        db.query(qAdd, [userId, collectionId], (error, data) => {
           if (error) {
-            console.error(error);
-            return res
-              .status(500)
-              .json("Failed to add to cart due to an internal error.");
+            console.error("Item already in cart", error);
+            return res.status(500).json("Failed to add item to cart");
           }
           return res.status(200).json("Item has been added to cart");
         });
-      } catch (error) {
-        // 这个catch可能捕获db.query执行之前的任何异常
-        console.error(error); // 记录异常详情以便调试
-        return res.status(500).json("An unexpected error occurred.");
       }
     });
   });
@@ -77,8 +74,8 @@ export const deleteFromCart = (req, res) => {
         return res.status(403).json("This account has been revoked.");
       }
 
-      const q = "DELETE FROM cart WHERE id = ? AND userId = ?";
-      const values = [req.body.cartId, req.body.userId];
+      const q = "DELETE FROM cart WHERE `id`=? AND `userId` = ?";
+      const values = [req.params.id, userInfo.id];
       db.query(q, values, (err, data) => {
         if (err) return res.status(500).json(err);
         if (data.affectedRows > 0)

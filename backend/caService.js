@@ -22,7 +22,7 @@ import { sendSignedRequest } from "./signedRequestService.js";
 //   }
 // }
 
-// 这是处理CSR的新URL，指向您的新路由
+// 这是处理CSR的新URL，指向新路由
 const CA_CSR_SIGN_URL = "http://localhost:8081/backend/ca/sign-csr";
 
 export async function requestCASignatureWithCSR(csrPem, privateKey) {
@@ -35,10 +35,10 @@ export async function requestCASignatureWithCSR(csrPem, privateKey) {
       CA_CSR_SIGN_URL,
       "POST",
       data,
-      privateKey // 注意，这里使用管理员的私钥进行签名，确保请求的安全性
+      privateKey // 这里使用管理员的私钥进行签名，确保请求的安全性
     );
 
-    // 根据您的server.js中的逻辑，返回的应该是一个包含签名证书的对象
+    // 根据server.js中的逻辑，返回的应该是一个包含签名证书的对象
     if (signedCertificateResponse.certificate) {
       return signedCertificateResponse.certificate;
     } else {

@@ -6,7 +6,7 @@ export function signData(data, privateKey) {
   signer.end();
   const signature = signer.sign(privateKey, "base64");
   return signature;
-}
+} 
 
 export function verifySignature(data, publicKey, signature) {
   const verifier = crypto.createVerify("SHA256");

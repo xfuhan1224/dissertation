@@ -4,7 +4,9 @@ import { makeRequest } from "../axios";
 import "./CollectionDetail.css";
 import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import axios, { AxiosError } from "axios";
 import AppsSharpIcon from "@mui/icons-material/AppsSharp";
 
 const CollectionDetail = () => {
@@ -29,7 +31,14 @@ const CollectionDetail = () => {
       alert("Item added to cart successfully!");
     } catch (error) {
       console.error("Failed to add to cart", error);
-      alert("Failed to add to cart");
+      if (axios.isAxiosError(error)) {
+        // 现在error被识别为AxiosError
+        if (error.response && error.response.status === 409) {
+          alert("This item is already in your cart.");
+        } else {
+          alert("Failed to add to cart");
+        }
+      }
     }
   };
 
@@ -64,12 +73,6 @@ const CollectionDetail = () => {
                   <button className="btnPurchase">Buy 1 now</button>
                   <button className="add-to-cart" onClick={handleAddToCart}>
                     <AddShoppingCartSharpIcon></AddShoppingCartSharpIcon>
-                  </button>
-                  <button className="detail-like">
-                    <FavoriteBorderOutlinedIcon />
-                  </button>
-                  <button className="detail-collect">
-                    <AppsSharpIcon />
                   </button>
                 </div>
               </div>

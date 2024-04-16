@@ -104,14 +104,6 @@ const Profile: React.FC = () => {
             >
               Created
             </button>
-            <button
-              className={`nav-btn ${
-                selectedTab === "Favorited" ? "selected" : ""
-              }`}
-              onClick={() => handleTabClick("Favorited")}
-            >
-              Favorited
-            </button>
           </div>
         </div>
         <div className="profile-bottom">
