@@ -5,13 +5,12 @@ import Upload from "./Upload";
 import { PostProps } from "./Post";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
-import { useNavigate } from "react-router-dom"; // 引入 useNavigate
+import { useNavigate } from "react-router-dom"; 
  
 const Posts = () => {
   console.log("posts");
-  const navigate = useNavigate(); // 创建 navigate 实例
+  const navigate = useNavigate(); 
  
-  // 使用useQuery钩子获取帖子数据
   const { isLoading, error, data } = useQuery({
     queryKey: ["posts"],
     queryFn: () => makeRequest.get("/posts").then((res) => res.data),

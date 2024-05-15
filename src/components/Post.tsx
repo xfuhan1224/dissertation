@@ -59,7 +59,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
       onError: (error: any) => {
         if (error.response && error.response.status === 403) {
           alert(
-            "You're unable to perform because your account has been revoked."
+            "You're unable to like this post because your account has been revoked."
           );
         } else {
           alert("An error occurred while trying to post the comment.");

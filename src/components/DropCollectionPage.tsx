@@ -14,7 +14,6 @@ const DropCollectionPage = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  // 使用React Query的useMutation钩子管理上传逻辑
   const mutation = useMutation({
     mutationFn: (formData: FormData) => {
       return makeRequest.post("/drops", formData);
@@ -59,7 +58,7 @@ const DropCollectionPage = () => {
     return () => {
       if (previewUrl) {
         URL.revokeObjectURL(previewUrl);
-        setPreviewUrl(""); // 清理预览URL状态
+        setPreviewUrl(""); 
       }
     };
   }, [previewUrl]);

@@ -16,7 +16,6 @@ interface AuthContextType {
   setCurrentUser: (user: User | null) => void;
 }
 
-// 创建带有明确类型的上下文
 export const AuthContext = createContext<AuthContextType>({
   currentUser: null,
   login: async () => {},
@@ -62,7 +61,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
           `http://localhost:8081/backend/auth/${currentUser.id}`,
           { withCredentials: true }
         );
-        setCurrentUser({ ...currentUser, ...res.data }); // 合并现有的currentUser信息与获取的用户信息
+        setCurrentUser({ ...currentUser, ...res.data }); 
         localStorage.setItem(
           "user",
           JSON.stringify({ ...currentUser, ...res.data })

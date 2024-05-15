@@ -38,7 +38,6 @@ export const addComment = (req, res) => {
         req.body.postId,
       ];
       db.query(q, values, (err, data) => {
-        // 使用参数化查询
         if (err) return res.status(500).json(err);
         return res.status(200).json("Comment has been created");
       });

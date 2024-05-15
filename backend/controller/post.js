@@ -25,7 +25,6 @@ export const addPost = (req, res) => {
   jwt.verify(token, "secretkey", async (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
 
-    // 首先检查用户的证书是否被撤销
     const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
     db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
       if (err) {
@@ -36,7 +35,6 @@ export const addPost = (req, res) => {
         return res.status(403).json("This account has been revoked.");
       }
 
-      // 用户的证书未被撤销，继续发帖逻辑
       if (!req.file) return res.status(400).json("No file uploaded.");
       const imgPath = req.file.path;
       const q =

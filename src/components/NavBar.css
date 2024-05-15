@@ -17,7 +17,7 @@ nav {
 nav ul {
   list-style-type: none;
   display: flex;
-  justify-content: space-between; /* 这里是关键的改变 */
+  justify-content: space-between; 
   margin: 0;
   padding: 0;
   margin-right: 30px;
@@ -177,10 +177,10 @@ nav ul li a {
   text-decoration: none;
 }
 nav ul li a:hover {
-  color: #efe9e9; /* 更改悬停颜色，这里使用的是橙色 */
+  color: #efe9e9; 
 }
 
-/* 新增样式 */
+
 .home-item {
   flex-grow: 1;
   margin-left: 10px;

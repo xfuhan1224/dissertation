@@ -31,7 +31,6 @@ export const addLike = (req, res) => {
 
       const values = [userInfo.id, req.body.postId];
       db.query(q, values, (err, data) => {
-        // 使用参数化查询
         if (err) return res.status(500).json(err);
         return res.status(200).json("Post has been liked");
       });
@@ -58,7 +57,6 @@ export const deleteLike = (req, res) => {
       const q = "DELETE FROM likes WHERE `userId` = ? AND `postId` = ?";
 
       db.query(q, [userInfo.id, req.body.postId], (err, data) => {
-        // 使用参数化查询
         if (err) return res.status(500).json(err);
         return res.status(200).json("Like has been deleted");
       });

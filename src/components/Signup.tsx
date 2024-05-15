@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
-import Validation from "./SignValidation"; // 确保路径正确
+import Validation from "./SignValidation";
 import axios from "axios";
 
 interface IErrors {
@@ -93,10 +93,10 @@ function Signup() {
             />
           </div>
           <div className="name-p">
-            <label htmlFor="name">First Name</label>
+            <label htmlFor="name">Username</label>
             <input
               type="name"
-              placeholder="Enter Your First Name"
+              placeholder="Enter Your Username"
               name="name"
               onChange={handleInput}
             />
@@ -123,7 +123,7 @@ function Signup() {
               onChange={handleInput}
             />
             {errors.password && (
-              <span className="text-danger">{errors.password}</span>
+              <span className="text-danger">Password is too short</span>
             )}
           </div>
           <button type="submit" className="btn-success">

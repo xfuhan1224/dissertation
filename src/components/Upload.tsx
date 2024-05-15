@@ -28,7 +28,6 @@ const Upload = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      // 示例：仅允许上传不超过5MB的图片文件
       if (file.size > 5242880) {
         alert("File size should not exceed 5MB");
         return;

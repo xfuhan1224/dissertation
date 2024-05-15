@@ -38,7 +38,6 @@ const AdminRevokePage: React.FC = () => {
       )
       .then((response) => {
         alert(response.data.message);
-        // 更新对应用户的 isRevoked 状态
         const updatedUsers = users.map((user) =>
           user.id === userId ? { ...user, isRevoked: true } : user
         );
@@ -59,7 +58,6 @@ const AdminRevokePage: React.FC = () => {
             <div className="revokeUserInfo-name">{user.name}</div>
             <div className="revokeUserInfo-email">{user.email}</div>
             <div className="revokeUserBtns">
-              <button className="revokeUserProfileBtn">Profile</button>
               {currentAdmin && (
                 <button
                   className="revokeUserBtn"

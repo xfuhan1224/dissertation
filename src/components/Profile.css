@@ -108,7 +108,6 @@
   border-radius: 12px;
 }
 
-/* 根据需要调整媒体查询以实现响应式设计 */
 @media (max-width: 768px) {
   .profile-home {
     flex-direction: column;

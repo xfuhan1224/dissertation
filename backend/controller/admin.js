@@ -56,7 +56,6 @@ export const adminLogin = (req, res) => {
     if (!checkPassword)
       return res.status(400).json("Wrong password or username");
 
-    // 修改这里：在token中加入角色信息
     const token = jwt.sign({ id: data[0].id }, "secretkey");
 
     const { adminpassword, ...others } = data[0];

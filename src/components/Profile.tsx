@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./Profile.css";
 import { AuthContext } from "./authContext";
-import { CartProvider } from "./CartContext";
 import Cart from "./Cart";
+import CollectedItem from "./CollectedItem";
+import CreatedItem from "./CreatedItem";
 import axios from "axios";
 
 interface UserProfile {
@@ -51,69 +52,53 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <CartProvider>
-      <div className="profile-home">
-        <div className="profile-up">
-          {profile?.profilePic ? (
-            <img
-              className="profile-pic"
-              src={`http://localhost:8081/${profile?.profilePic}`}
-              alt="Profile"
-              style={{
-                width: "150px",
-                height: "150px",
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
-          ) : (
-            <div className="profile-pic-placeholder"></div>
-          )}
-          <div className="profile-userName">{profile?.name}</div>
-          <div className="profile-createdAt">{`Joined ${profile?.joinedAt}`}</div>
-        </div>
-        <div className="profile-mid">
-          <div className="profile-nav">
-            <button
-              className={`nav-btn ${selectedTab === "Cart" ? "selected" : ""}`}
-              onClick={() => handleTabClick("Cart")}
-            >
-              Cart
-            </button>
-            <button
-              className={`nav-btn ${
-                selectedTab === "Collected" ? "selected" : ""
-              }`}
-              onClick={() => handleTabClick("Collected")}
-            >
-              Collected
-            </button>
-            <button
-              className={`nav-btn ${
-                selectedTab === "Activity" ? "selected" : ""
-              }`}
-              onClick={() => handleTabClick("Activity")}
-            >
-              Activity
-            </button>
-            <button
-              className={`nav-btn ${
-                selectedTab === "Created" ? "selected" : ""
-              }`}
-              onClick={() => handleTabClick("Created")}
-            >
-              Created
-            </button>
-          </div>
-        </div>
-        <div className="profile-bottom">
-          <div className="item-number">0 items</div>
-          <div className="listed-items">
-            {selectedTab === "Cart" && <Cart />}
-          </div>
+    <div className="profile-home">
+      <div className="profile-up">
+        {profile?.profilePic ? (
+          <img
+            className="profile-pic"
+            src={`http://localhost:8081/${profile?.profilePic}`}
+            alt="Profile"
+            style={{
+              width: "150px",
+              height: "150px",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
+        ) : (
+          <div className="profile-pic-placeholder"></div>
+        )}
+        <div className="profile-userName">{profile?.name}</div>
+        <div className="profile-createdAt">{`Joined ${profile?.joinedAt}`}</div>
+      </div>
+      <div className="profile-mid">
+        <div className="profile-nav">
+          <button
+            className={`nav-btn ${selectedTab === "Cart" ? "selected" : ""}`}
+            onClick={() => handleTabClick("Cart")}
+          >
+            Cart
+          </button>
+          <button
+            className={`nav-btn ${
+              selectedTab === "Collected" ? "selected" : ""
+            }`}
+            onClick={() => handleTabClick("Collected")}
+          >
+            Collected
+          </button>
         </div>
       </div>
-    </CartProvider>
+      <div className="profile-bottom">
+        <div className="item-number">0 items</div>
+        <div className="listed-items">
+          {selectedTab === "Cart" && <Cart />}
+          {selectedTab === "Collected" ? <CollectedItem /> : null}
+          {selectedTab === "Created" ? <CreatedItem /> : null}
+        </div>
+      </div>
+    </div>
   );
 };
 

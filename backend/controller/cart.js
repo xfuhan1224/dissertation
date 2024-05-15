@@ -22,38 +22,61 @@ export const getCart = (req, res) => {
 export const addToCart = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) {
-    return res.status(401).json("Not Logged in");
+    return res.status(401).json({ success: false, message: "Not logged in" });
   }
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) {
-      return res.status(403).json("Token is not valid");
+      return res
+        .status(403)
+        .json({ success: false, message: "Token is not valid" });
     }
 
-    const { collectionId } = req.body;
-    const userId = userInfo.id;
-
-    const qCheckExists =
-      "SELECT * FROM cart WHERE userId = ? AND collectionId = ?";
-    db.query(qCheckExists, [userId, collectionId], (err, results) => {
+    const qCheckRevoked = "SELECT * FROM RevocationList WHERE userId = ?";
+    db.query(qCheckRevoked, [userInfo.id], (err, revocationData) => {
       if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json("Internal server error");
+        console.error("Error querying the RevocationList:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Internal server error" });
       }
-      if (results.length > 0) {
-        // 这里可以选择更新数量或者直接返回存在信息
-        return res.status(409).json("Item already in cart"); // 409 Conflict
-      } else {
-        // 不存在，执行添加操作
+      if (revocationData.length > 0) {
+        return res
+          .status(403)
+          .json({ success: false, message: "This account has been revoked." });
+      }
+
+      const { collectionId } = req.body;
+      const userId = userInfo.id;
+
+      const qCheckExists =
+        "SELECT * FROM cart WHERE userId = ? AND collectionId = ?";
+      db.query(qCheckExists, [userId, collectionId], (err, results) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res
+            .status(500)
+            .json({ success: false, message: "Internal server error" });
+        }
+        if (results.length > 0) {
+          return res
+            .status(409)
+            .json({ success: false, message: "Item already in cart" });
+        }
+
         const qAdd = "INSERT INTO cart (userId, collectionId) VALUES (?, ?)";
         db.query(qAdd, [userId, collectionId], (error, data) => {
           if (error) {
-            console.error("Item already in cart", error);
-            return res.status(500).json("Failed to add item to cart");
+            console.error("Database error during add to cart:", error);
+            return res
+              .status(500)
+              .json({ success: false, message: "Failed to add item to cart" });
           }
-          return res.status(200).json("Item has been added to cart");
+          return res
+            .status(200)
+            .json({ success: true, message: "Item has been added to cart" });
         });
-      }
+      });
     });
   });
 };

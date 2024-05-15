@@ -7,6 +7,7 @@ import dropRoutes from "./routes/drops.js";
 import adminRoutes from "./routes/admins.js";
 import revokeRoutes from "./routes/revokes.js";
 import cartRoutes from "./routes/carts.js";
+import purchaseRoutes from "./routes/purchases.js";
 import { upload, uploadProfilePic } from "./multerConfig.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
@@ -39,7 +40,6 @@ app.post(
   }
 );
 
-// 使用用户路由
 app.use("/backend/auth", authRoutes);
 app.use("/backend/posts", postRoutes);
 app.use("/backend/comments", commentRoutes);
@@ -48,6 +48,7 @@ app.use("/backend/drops", dropRoutes);
 app.use("/backend/admins", adminRoutes);
 app.use("/backend/revokes", revokeRoutes);
 app.use("/backend/carts", cartRoutes);
+app.use("/backend/purchases", purchaseRoutes);
 
 // app.post("/backend/ca/sign", async (req, res) => {
 //   try {

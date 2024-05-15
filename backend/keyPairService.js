@@ -18,7 +18,7 @@ export function generateKeyPair() {
 }
 
 export function generateCSR(publicKeyPem, privateKeyPem, subjectAttributes) {
-  const csr = forge.pki.createCertificationRequest(); 
+  const csr = forge.pki.createCertificationRequest();
   csr.publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
   csr.setSubject(subjectAttributes);
 

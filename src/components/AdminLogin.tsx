@@ -44,7 +44,6 @@ function AdminLogin() {
         })
         .catch((err) => {
           console.error("Login failed", err);
-          // 根据err.response.data可以获取后端返回的具体错误信息
           if (err.response && err.response.data) {
             alert(err.response.data);
           } else {

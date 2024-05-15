@@ -99,6 +99,10 @@
   background-color: #2566f1;
 }
 
+.btnPurchase:disabled {
+  background-color: #a8a8a8;
+}
+
 .add-to-cart {
   display: flex;
   width: 60px;

@@ -22,23 +22,19 @@ export const register = async (req, res) => {
         return res.status(400).send("No password provided");
       }
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
- 
-      // 创建CSR的主题属性
+
       const subjectAttributes = [
         { name: "commonName", value: req.body.name },
         { name: "emailAddress", value: req.body.email },
       ];
 
       try {
-        // 生成CSR
         const csrPem = generateCSR(publicKey, privateKey, subjectAttributes);
-        // 发送CSR到CA并接收签名的证书
         const signedCertificatePem = await requestCASignatureWithCSR(
           csrPem,
           privateKey
         );
 
-        // 存储用户信息及其签名证书
         const q1 =
           "INSERT INTO login (`profilePic`, `name`, `email`, `password`, `joinedAt`, `isRevoked`, `publicKey`, `certificate`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         const imgPath = req.file ? req.file.path : "";
@@ -53,8 +49,8 @@ export const register = async (req, res) => {
             hashedPassword,
             joinedAt,
             isRevoked,
-            publicKey, // 仍然存储公钥
-            signedCertificatePem, // 新增：存储签名证书
+            publicKey,
+            signedCertificatePem, // 存储签名证书
           ],
           (err, data) => {
             if (err) {
@@ -64,7 +60,7 @@ export const register = async (req, res) => {
             return res.status(200).json({
               message: "User has been created.",
               publicKey: publicKey, // 返回公钥
-              certificate: signedCertificatePem, // 新增：返回签名证书
+              certificate: signedCertificatePem, // 返回签名证书
             });
           }
         );

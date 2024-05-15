@@ -1,13 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { makeRequest } from "../axios";
 import "./CollectionDetail.css";
-import AddShoppingCartSharpIcon from "@mui/icons-material/AddShoppingCartSharp";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { CollectionProps } from "./Collection";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import axios, { AxiosError } from "axios";
-import AppsSharpIcon from "@mui/icons-material/AppsSharp";
 
 const CollectionDetail = () => {
   const { id } = useParams();
@@ -15,6 +13,12 @@ const CollectionDetail = () => {
     queryKey: ["drops", id],
     queryFn: () => makeRequest.get(`/drops/${id}`).then((res) => res.data),
   });
+  const [isPurchased, setIsPurchased] = useState(false);
+  useEffect(() => {
+    if (data && data.isPurchased) {
+      setIsPurchased(true);
+    }
+  }, [data]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error occurred</div>;
@@ -32,13 +36,33 @@ const CollectionDetail = () => {
     } catch (error) {
       console.error("Failed to add to cart", error);
       if (axios.isAxiosError(error)) {
-        // 现在error被识别为AxiosError
         if (error.response && error.response.status === 409) {
           alert("This item is already in your cart.");
         } else {
-          alert("Failed to add to cart");
+          alert("Failed to add to cart, you account has been revoked.");
         }
       }
+    }
+  };
+
+  const handlePurchase = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8081/backend/purchases/buy",
+        { CollectionId: id },
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.data.success) {
+        alert("Purchase successful!");
+      } else {
+        alert("Purchase failed: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("Error during purchase:", error);
+      alert("Purchase failed, your account has been revoked.");
     }
   };
 
@@ -70,9 +94,17 @@ const CollectionDetail = () => {
                   <div className="creator-name">{data.creatorName}</div>
                 </div>
                 <div className="btn-purchase">
-                  <button className="btnPurchase">Buy 1 now</button>
+                  {isPurchased ? (
+                    <button disabled className="btnPurchase">
+                      Purchased
+                    </button>
+                  ) : (
+                    <button className="btnPurchase" onClick={handlePurchase}>
+                      Buy 1 now
+                    </button>
+                  )}
                   <button className="add-to-cart" onClick={handleAddToCart}>
-                    <AddShoppingCartSharpIcon></AddShoppingCartSharpIcon>
+                    <FavoriteBorderOutlinedIcon></FavoriteBorderOutlinedIcon>
                   </button>
                 </div>
               </div>

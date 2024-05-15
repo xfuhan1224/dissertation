@@ -41,11 +41,8 @@ const Comments: React.FC<CommentsProps> = ({ postId }) => {
       queryClient.invalidateQueries(["comments", postId]);
     },
     onError: (error: any) => {
-      // 错误处理逻辑，例如显示一个消息
       if (error.response && error.response.status === 403) {
-        alert(
-          "You're unable to comment because your account has been revoked."
-        );
+        alert("You're unable to comment because your account has been revoked");
       } else {
         alert("An error occurred while trying to post the comment.");
       }
