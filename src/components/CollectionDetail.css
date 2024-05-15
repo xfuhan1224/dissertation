@@ -141,3 +141,18 @@
   color: #fff;
   background-color: #2566f1;
 }
+
+@media (max-width: 1024px) {
+  .detail-container {
+    display: block;
+  }
+
+  .detail-left,
+  .detail-right {
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+    margin: 0;
+    display: block;
+  }
+}

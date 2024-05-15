@@ -75,7 +75,7 @@ const CollectionDetail = () => {
               <img
                 src={`http://localhost:8081/${data.img}`}
                 alt="Collection"
-                style={{ width: "600px", height: "600px" }}
+                style={{ width: "300px", height: "300px" }}
               />
             </div>
           </div>
